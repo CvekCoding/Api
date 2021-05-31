@@ -136,6 +136,14 @@ class Client
         }
     }
 
+    /**
+     * Webhook handler for one Update
+     */
+    public function runUpdate(array $update)
+    {
+        $this->handle([Update::fromResponse($update)]);
+    }
+
     public function getRawBody()
     {
         return file_get_contents('php://input');
