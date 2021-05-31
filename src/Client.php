@@ -126,7 +126,6 @@ class Client
     /**
      * Webhook handler
      *
-     * @return array
      * @throws \TelegramBot\Api\InvalidJsonException
      */
     public function run()
@@ -138,10 +137,15 @@ class Client
 
     /**
      * Webhook handler for one Update
+     *
+     * @throws InvalidJsonException
+     * @var string $update
      */
-    public function runUpdate(array $update)
+    public function runUpdate($update)
     {
-        $this->handle([Update::fromResponse($update)]);
+        if ($data = BotApi::jsonValidate($update, true)) {
+            $this->handle([Update::fromResponse($data)]);
+        }
     }
 
     public function getRawBody()
