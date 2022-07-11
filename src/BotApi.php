@@ -1467,6 +1467,78 @@ class BotApi
     }
 
     /**
+     * Use this method to create a link for an invoice. Returns the created invoice link as String on success.
+     *
+     * @param string $title
+     * @param string $description
+     * @param string $payload
+     * @param string $providerToken
+     * @param string $currency
+     * @param array $prices
+     * @param int|null $maxTipAmount
+     * @param array|null $suggestedTipAmounts
+     * @param string|null $providerData
+     * @param string|null $photoUrl
+     * @param int|null $photoSize
+     * @param int|null $photoWidth
+     * @param int|null $photoHeight
+     * @param bool $needName
+     * @param bool $needPhoneNumber
+     * @param bool $needEmail
+     * @param bool $needShippingAddress
+     * @param bool $sendPhoneNumberToProvider
+     * @param bool $sendEmailToProvider
+     * @param bool $isFlexible
+     *
+     * @return Message
+     */
+    public function createInvoiceLink(
+        $title,
+        $description,
+        $payload,
+        $providerToken,
+        $currency,
+        $prices,
+        $maxTipAmount = null,
+        $suggestedTipAmounts = null,
+        $providerData = null,
+        $photoUrl = null,
+        $photoSize = null,
+        $photoWidth = null,
+        $photoHeight = null,
+        $needName = false,
+        $needPhoneNumber = false,
+        $needEmail = false,
+        $needShippingAddress = false,
+        $sendPhoneNumberToProvider = false,
+        $sendEmailToProvider = false,
+        $isFlexible = false
+    ) {
+        return Message::fromResponse($this->call('createInvoiceLink', [
+            'title' => $title,
+            'description' => $description,
+            'payload' => $payload,
+            'provider_token' => $providerToken,
+            'currency' => $currency,
+            'prices' => json_encode($prices),
+            'max_tip_amount' => $maxTipAmount,
+            'suggested_tip_amounts' => $suggestedTipAmounts,
+            'provider_data' => $providerData,
+            'photo_url' => $photoUrl,
+            'photo_size' => $photoSize,
+            'photo_width' => $photoWidth,
+            'photo_height' => $photoHeight,
+            'need_name' => $needName,
+            'need_phone_number' => $needPhoneNumber,
+            'need_email' => $needEmail,
+            'need_shipping_address' => $needShippingAddress,
+            'send_phone_number_to_provider' => (bool)$sendPhoneNumberToProvider,
+            'send_email_to_provider' => (bool)$sendEmailToProvider,
+            'is_flexible' => $isFlexible
+        ]));
+    }
+
+    /**
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API
      * will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries.
      * On success, True is returned.
