@@ -1490,7 +1490,7 @@ class BotApi
      * @param bool $sendEmailToProvider
      * @param bool $isFlexible
      *
-     * @return Message
+     * @return string
      */
     public function createInvoiceLink(
         $title,
@@ -1514,7 +1514,7 @@ class BotApi
         $sendEmailToProvider = false,
         $isFlexible = false
     ) {
-        return Message::fromResponse($this->call('createInvoiceLink', [
+        return $this->call('createInvoiceLink', [
             'title' => $title,
             'description' => $description,
             'payload' => $payload,
@@ -1535,7 +1535,7 @@ class BotApi
             'send_phone_number_to_provider' => (bool)$sendPhoneNumberToProvider,
             'send_email_to_provider' => (bool)$sendEmailToProvider,
             'is_flexible' => $isFlexible
-        ]));
+        ]);
     }
 
     /**
